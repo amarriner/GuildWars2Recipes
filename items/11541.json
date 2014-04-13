@@ -1,0 +1,4 @@
+{"item_id":"11541","name":"Resilient Seeker Coat","description":"","type":"Armor","level":"15","rarity":"Fine","vendor_value":"30","icon_file_id":"61417","icon_file_signature":"BBC80CD999BA3994B7C3F9B30F30FE716407E890","game_types":["Activity",
+"Dungeon",
+"Pve",
+"Wvw"],"flags":[],"restrictions":[],"armor":{"type":"Coat","weight_class":"Medium","defense":"49","infusion_slots":[],"infix_upgrade":{"attributes":[{"attribute":"Toughness","modifier":"11"}]},"suffix_item_id":""}}
