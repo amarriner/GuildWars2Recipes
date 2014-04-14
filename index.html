@@ -11,19 +11,7 @@
          $(document).ready(function() {
             all = get_json('items.json');
 
-            var i;
-            var recipe = get_json('recipes/1275.json');
-            var output = get_json('items/' + recipe['output_item_id'] + '.json');
-            var input = new Array();
-            for (i = 0; i < recipe['ingredients'].length; i++) {
-               var item = get_json('items/' + recipe['ingredients'][i]['item_id'] + '.json');
-               $('#input').append('<div>' + item['name'] + '</div>');
-               $('#input').append('<div><img src="items/' + item['item_id'] + '.png" alt="' + item['name'] + '"></div>');
-               input.push(item);
-            }
-
-            $('#output').append('<div>' + output['name'] + '</div>');
-            $('#output').append('<div><img src="items/' + output['item_id'] + '.png" alt="' + output['name'] + '"></div>');
+            $('#searchbox').keypress(search_recipes).focus();
          });
 
          function get_json(url) {
@@ -40,12 +28,37 @@
             return obj;
          }
 
+         function display_recipe(recipe_id) {
+            $('#input').empty();
+            $('#output').empty();
+
+            var i;
+            var recipe = get_json('recipes/' + recipe_id + '.json');
+            var output = get_json('items/' + recipe['output_item_id'] + '.json');
+            var input = new Array();
+            for (i = 0; i < recipe['ingredients'].length; i++) {
+               var item = get_json('items/' + recipe['ingredients'][i]['item_id'] + '.json');
+               $('#input').append('<div>' + item['name'] + '</div>');
+               $('#input').append('<div><img src="items/' + item['item_id'] + '.png" alt="' + item['name'] + '"></div>');
+               input.push(item);
+            }
+
+            $('#output').append('<div>' + output['name'] + '</div>');
+            $('#output').append('<div><img src="items/' + output['item_id'] + '.png" alt="' + output['name'] + '"></div>');
+
+            $('#searchresults').empty();
+
+            return false;
+         }
+
          function search_recipes() {
-            $('#searchresults').html('');
-            for (var i = 0; i < all.length; i++) {
-               if (all[i]['name'].toUpperCase().indexOf($('#searchbox').val().toUpperCase()) == 0) {
-                  $('#searchresults').append('<div>' + all[i]['name'] + '</div>');
-               }
+            if ($('#searchbox').val().length >= 3) {
+               $('#searchresults').empty();
+               $.each(all, function(name, recipes) {
+                  if (name.toUpperCase().indexOf($('#searchbox').val().toUpperCase()) >= 0) {
+                     $('#searchresults').append('<div><a href="#" onclick="display_recipe(' + recipes[0] + ');">' + name + '</a> (' + recipes.length + ')</div>');
+                  }
+               });
             }
          }
       </script>
@@ -55,16 +68,19 @@
       <div id="search">
          <div>
             <input type="text" id="searchbox" name="searchbox">
-            <input type="button" onclick="search_recipes(); return false;">
          </div>
          <div id="searchresults">
          </div>
       </div>
 
-      <div id="input">
-      </div>
+      <div id="recipes">
+         <div class="recipe">
+            <div id="input" style="float: left;">
+            </div>
 
-      <div id="output">
+            <div id="output" style="float: right;">
+            </div>
+         </div>
       </div>
 
    </body>

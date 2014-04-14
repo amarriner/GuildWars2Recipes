@@ -11,7 +11,7 @@ import urllib
 #https://api.guildwars2.com/v1/item_details.json?item_id=28445
 #https://render.guildwars2.com/file/{signature}/{file_id}.{format}
 
-all = []
+all = dict()
 
 def get_item(item_id):
    print '   + Getting item id ' + item_id + '...'
@@ -59,7 +59,10 @@ def get_recipe(recipe_id):
 
    print ' * Processing output item...'
    item = get_item(recipe['output_item_id'])
-   all.append({'id': recipe_id, 'name': item['name']}) 
+   if (recipe_id not in all):
+      all[item['name']] = []
+
+   all[item['name']].append(recipe_id)
 
    #print ' * Processing ingredients...'
    #for i in recipe['ingredients']:
