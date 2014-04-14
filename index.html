@@ -6,7 +6,11 @@
       <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
       <script type="text/javascript">
+         var all;
+
          $(document).ready(function() {
+            all = get_json('items.json');
+
             var i;
             var recipe = get_json('recipes/1275.json');
             var output = get_json('items/' + recipe['output_item_id'] + '.json');
@@ -35,9 +39,27 @@
 
             return obj;
          }
+
+         function search_recipes() {
+            $('#searchresults').html('');
+            for (var i = 0; i < all.length; i++) {
+               if (all[i]['name'].toUpperCase().indexOf($('#searchbox').val().toUpperCase()) == 0) {
+                  $('#searchresults').append('<div>' + all[i]['name'] + '</div>');
+               }
+            }
+         }
       </script>
    </head>
    <body>
+
+      <div id="search">
+         <div>
+            <input type="text" id="searchbox" name="searchbox">
+            <input type="button" onclick="search_recipes(); return false;">
+         </div>
+         <div id="searchresults">
+         </div>
+      </div>
 
       <div id="input">
       </div>

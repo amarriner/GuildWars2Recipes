@@ -11,9 +11,7 @@ import urllib
 #https://api.guildwars2.com/v1/item_details.json?item_id=28445
 #https://render.guildwars2.com/file/{signature}/{file_id}.{format}
 
-recipe_id = '1275'
-recipe_url = 'https://api.guildwars2.com/v1/recipe_details.json?recipe_id=' + recipe_id
-recipe_file = 'recipes/' + recipe_id + '.json'
+all = []
 
 def get_item(item_id):
    print '   + Getting item id ' + item_id + '...'
@@ -39,23 +37,45 @@ def get_item(item_id):
       print '     - Downloading missing item image...'
       urllib.urlretrieve(image_url, image_file)
 
+   return item
 
-if (os.path.isfile(recipe_file)):
-   print ' * Reading cached recipe...'
-   f = open(recipe_file)
-   recipe = json.loads(f.read())
-   f.close()
-else:
-   print ' * Downloading recipe via API...'
-   request = requests.get(recipe_url)
-   recipe = json.loads(request.content)
-   f = open(recipe_file, 'w')
-   f.write(request.content)
-   f.close()
+def get_recipe(recipe_id):
+   print '+ Getting recipe ' + recipe_id + '...'
+   recipe_url = 'https://api.guildwars2.com/v1/recipe_details.json?recipe_id=' + recipe_id
+   recipe_file = 'recipes/' + recipe_id + '.json'
 
-print ' * Processing output item...'
-get_item(recipe['output_item_id'])
+   if (os.path.isfile(recipe_file)):
+      print ' * Reading cached recipe...'
+      f = open(recipe_file)
+      recipe = json.loads(f.read())
+      f.close()
+   else:
+      print ' * Downloading recipe via API...'
+      request = requests.get(recipe_url)
+      recipe = json.loads(request.content)
+      f = open(recipe_file, 'w')
+      f.write(request.content)
+      f.close()
 
-print ' * Processing ingredients...'
-for i in recipe['ingredients']:
-   get_item(i['item_id'])
+   print ' * Processing output item...'
+   item = get_item(recipe['output_item_id'])
+   all.append({'id': recipe_id, 'name': item['name']}) 
+
+   #print ' * Processing ingredients...'
+   #for i in recipe['ingredients']:
+   #   get_item(i['item_id'])
+
+   return recipe
+
+r = open('recipes.json')
+recipes = json.loads(r.read())
+r.close()
+
+print len(recipes['recipes'])
+for r in recipes['recipes']:
+   get_recipe(str(r))
+
+f = open('items.json', 'w')
+f.write(json.dumps(all))
+f.close()
+
