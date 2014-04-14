@@ -46,9 +46,8 @@
             $('#output').append('<div>' + output['name'] + '</div>');
             $('#output').append('<div><img src="items/' + output['item_id'] + '.png" alt="' + output['name'] + '"></div>');
 
-            $('#searchresults').empty();
-            $('#searchbox').val('');
-            $('#searchbox').focus();
+            $('#searchresults').empty().removeClass('scroll');
+            $('#searchbox').val('').focus();
 
             return false;
          }
@@ -58,14 +57,67 @@
                $('#searchresults').empty();
                $.each(all, function(name, recipes) {
                   if (name.toUpperCase().indexOf($('#searchbox').val().toUpperCase()) >= 0) {
-                     $('#searchresults').append('<div><a href="#" onclick="display_recipe(' + recipes[0] + ');">' + name + '</a> (' + recipes.length + ')</div>');
+                     $('#searchresults').append('<a href="#" onclick="display_recipe(' + recipes[0] + ');">' + name + '</a>').addClass('scroll')
                   }
                });
+
+               $('#searchresults a:even').addClass('gray');
+               $('#searchresults a').mouseover(function() { $(this).addClass('hover'); }).mouseout(function() { $(this).removeClass('hover'); });
             }
          }
       </script>
+
+      <style>
+         body {
+            font-family: Arial, Verdana, Helvetica;
+            font-size: 12px;
+            padding: 0;
+            margin: 0;
+         }
+
+         div {
+            padding: 5px;
+         }
+
+         #github {
+            background-color: #aae;
+            border-bottom: 1px solid #44b;
+            border-top: 1px solid #44b;
+            text-align: right;
+         }
+
+         #github a, #github a:hover, #github a:active, #github a:visited {
+            color: #44b;
+            font-size: 14px;
+            font-weight: bold;
+         }
+
+         #searchresults a {
+            display: block;
+            padding: 5px;
+         }
+
+         .gray {
+            background-color: #efefef;
+         }
+
+         .hover {
+            background-color: #aae;
+            color: white;
+         }
+
+         .scroll {
+            height: 200px;
+            overflow: scroll;
+         }
+      </style>
    </head>
    <body>
+      <h1>Guild Wars 2 Recipes</h1>
+
+      <div id="github">
+         <a href="https://github.com/amarriner/GuildWars2Recipes">Github</a>
+      </div>
 
       <div id="search">
          <div>
