@@ -47,6 +47,8 @@
             $('#output').append('<div><img src="items/' + output['item_id'] + '.png" alt="' + output['name'] + '"></div>');
 
             $('#searchresults').empty();
+            $('#searchbox').val('');
+            $('#searchbox').focus();
 
             return false;
          }
