@@ -75,21 +75,38 @@
             margin: 0;
          }
 
-         div {
+         h1, div {
             padding: 5px;
          }
 
          #github {
-            background-color: #aae;
-            border-bottom: 1px solid #44b;
-            border-top: 1px solid #44b;
+            background-color: #bbbbef;
+            border-bottom: 1px solid #88d;
+            border-top: 1px solid #88d;
             text-align: right;
          }
 
          #github a, #github a:hover, #github a:active, #github a:visited {
-            color: #44b;
+            color: #88d;
             font-size: 14px;
             font-weight: bold;
+         }
+
+         #search {
+            padding: 0;
+            margin: 0;
+         }
+
+         #searchbox {
+            background-image: url(img/magnifier.png);
+            background-position: right;
+            background-repeat: no-repeat;
+            border: 1px solid #88d;
+         }
+
+         #searchheader {
+            background-color: #efefef;
+            border-bottom: 1px solid #88d;
          }
 
          #searchresults a {
@@ -108,7 +125,8 @@
 
          .scroll {
             height: 200px;
-            overflow: scroll;
+            /* overflow: scroll; */
+            overflow-x: hidden;
          }
       </style>
    </head>
@@ -120,8 +138,8 @@
       </div>
 
       <div id="search">
-         <div>
-            Search: <input type="text" id="searchbox" name="searchbox">
+         <div id="searchheader">
+            <input type="text" id="searchbox" name="searchbox">
          </div>
          <div id="searchresults">
          </div>
