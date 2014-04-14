@@ -1,0 +1,63 @@
+body {
+   font-family: Arial, Verdana, Helvetica;
+   font-size: 12px;
+   padding: 0;
+   margin: 0;
+}
+
+h1, div {
+   padding: 5px;
+}
+
+#github {
+   background-color: #bbbbef;
+   border-bottom: 1px solid #88d;
+   border-top: 1px solid #88d;
+   text-align: right;
+}
+
+#github a, #github a:hover, #github a:active, #github a:visited {
+   color: #88d;
+   font-size: 14px;
+   font-weight: bold;
+}
+
+#map {
+   height: 800px;
+}
+
+#search {
+   padding: 0;
+   margin: 0;
+}
+
+#searchbox {
+   background-image: url(img/magnifier.png);
+   background-position: right;
+   background-repeat: no-repeat;
+   border: 1px solid #88d;
+}
+
+#searchheader {
+   background-color: #efefef;
+   border-bottom: 1px solid #88d;
+}
+
+#searchresults a {
+   display: block;
+   padding: 5px;
+}
+
+.gray {
+   background-color: #efefef;
+}
+
+.hover {
+   background-color: #aae;
+   color: white;
+}
+
+.scroll {
+   height: 200px;
+   overflow-x: hidden;
+}

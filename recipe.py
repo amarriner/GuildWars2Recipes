@@ -64,9 +64,9 @@ def get_recipe(recipe_id):
 
    all[item['name']].append(recipe_id)
 
-   #print ' * Processing ingredients...'
-   #for i in recipe['ingredients']:
-   #   get_item(i['item_id'])
+   print ' * Processing ingredients...'
+   for i in recipe['ingredients']:
+      get_item(i['item_id'])
 
    return recipe
 

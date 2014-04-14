@@ -12,6 +12,7 @@
             all = get_json('items.json');
 
             $('#searchbox').keypress(search_recipes).focus();
+            $('#searchresults').hide();
          });
 
          function get_json(url) {
@@ -46,7 +47,7 @@
             $('#output').append('<div>' + output['name'] + '</div>');
             $('#output').append('<div><img src="items/' + output['item_id'] + '.png" alt="' + output['name'] + '"></div>');
 
-            $('#searchresults').empty().removeClass('scroll');
+            $('#searchresults').empty().removeClass('scroll').hide();
             $('#searchbox').val('').focus();
 
             return false;
@@ -57,78 +58,19 @@
                $('#searchresults').empty();
                $.each(all, function(name, recipes) {
                   if (name.toUpperCase().indexOf($('#searchbox').val().toUpperCase()) >= 0) {
-                     $('#searchresults').append('<a href="#" onclick="display_recipe(' + recipes[0] + ');">' + name + '</a>').addClass('scroll')
+                     $('#searchresults').append('<a href="#" onclick="display_recipe(' + recipes[0] + ');">' + name + '</a>')
                   }
                });
 
+               $('#searchresults').addClass('scroll').show();
                $('#searchresults a:even').addClass('gray');
                $('#searchresults a').mouseover(function() { $(this).addClass('hover'); }).mouseout(function() { $(this).removeClass('hover'); });
             }
          }
       </script>
 
-      <style>
-         body {
-            font-family: Arial, Verdana, Helvetica;
-            font-size: 12px;
-            padding: 0;
-            margin: 0;
-         }
+      <link rel="stylesheet" href="css/main.css" />
 
-         h1, div {
-            padding: 5px;
-         }
-
-         #github {
-            background-color: #bbbbef;
-            border-bottom: 1px solid #88d;
-            border-top: 1px solid #88d;
-            text-align: right;
-         }
-
-         #github a, #github a:hover, #github a:active, #github a:visited {
-            color: #88d;
-            font-size: 14px;
-            font-weight: bold;
-         }
-
-         #search {
-            padding: 0;
-            margin: 0;
-         }
-
-         #searchbox {
-            background-image: url(img/magnifier.png);
-            background-position: right;
-            background-repeat: no-repeat;
-            border: 1px solid #88d;
-         }
-
-         #searchheader {
-            background-color: #efefef;
-            border-bottom: 1px solid #88d;
-         }
-
-         #searchresults a {
-            display: block;
-            padding: 5px;
-         }
-
-         .gray {
-            background-color: #efefef;
-         }
-
-         .hover {
-            background-color: #aae;
-            color: white;
-         }
-
-         .scroll {
-            height: 200px;
-            /* overflow: scroll; */
-            overflow-x: hidden;
-         }
-      </style>
    </head>
    <body>
       <h1>Guild Wars 2 Recipes</h1>

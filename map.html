@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+   <head>
+      <title>Guild Wars 2 - Maps</title>
+
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+      <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+
+      <script type="text/javascript">
+         var map;
+
+         $(document).ready(function() {
+            map = L.map('map').setView([0, 0], 3);
+            L.tileLayer("https://{s}.guildwars2.com/1/1/{z}/{x}/{y}.jpg", {
+               minZoom: 0,
+               maxZoom: 7,
+               continuousWorld: true,
+               subdomains: ['tiles1', 'tiles2', 'tiles3', 'tiles4']
+            }).addTo(map);
+         });
+
+         function get_json(url) {
+            var obj;
+
+            $.ajax({
+               url: url,
+               async: false,
+               success: function(json) {
+                  obj = json;
+               }
+            });
+
+            return obj;
+         }
+
+      </script>
+
+      <link rel="stylesheet" href="css/main.css" />
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+
+   </head>
+   <body>
+      <h1>Guild Wars 2 Maps</h1>
+
+      <div id="github">
+         <a href="https://github.com/amarriner/GuildWars2Recipes">Github</a>
+      </div>
+
+      <div id="map"></div>
+
+   </body>
+</html>
